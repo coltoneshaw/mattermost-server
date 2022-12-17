@@ -134,6 +134,18 @@ func (a *App) SendNotifications(c request.CTX, post *model.Post, team *model.Tea
 		if post.GetProp("from_webhook") == "true" {
 			mentions.addMention(post.UserId, DMMention)
 		}
+	} else if channel.Type == model.ChannelTypeGroup {
+		otherUserIds, err := a.Srv().Store().Channel().GetAllChannelMembersById(channel.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		for _, otherUserId := range otherUserIds {
+			if otherUserId != post.UserId {
+				mentions.addMention(otherUserId, GroupMention)
+			}
+		}
+
 	} else {
 		allowChannelMentions = a.allowChannelMentions(c, post, len(profileMap))
 		keywords = a.getMentionKeywordsInChannel(profileMap, allowChannelMentions, channelMemberNotifyPropsMap)

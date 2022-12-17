@@ -232,3 +232,13 @@ func GetDefaultChannelNotifyProps() StringMap {
 		IgnoreChannelMentionsNotifyProp: IgnoreChannelMentionsDefault,
 	}
 }
+
+func GetGroupChannelNotifyProps() StringMap {
+	return StringMap{
+		DesktopNotifyProp:               ChannelNotifyAll,
+		MarkUnreadNotifyProp:            ChannelMarkUnreadAll,
+		PushNotifyProp:                  ChannelNotifyAll,
+		EmailNotifyProp:                 ChannelNotifyDefault,
+		IgnoreChannelMentionsNotifyProp: IgnoreChannelMentionsDefault,
+	}
+}
